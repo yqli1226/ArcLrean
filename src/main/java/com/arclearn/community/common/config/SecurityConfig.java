@@ -1,4 +1,4 @@
-package com.arclearn.community.config;
+package com.arclearn.community.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

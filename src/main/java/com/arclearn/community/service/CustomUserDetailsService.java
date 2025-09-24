@@ -1,9 +1,9 @@
 package com.arclearn.community.service;
 
-import com.arclearn.community.entity.Permission;
-import com.arclearn.community.entity.Role;
-import com.arclearn.community.entity.User;
-import com.arclearn.community.repository.UserRepository;
+import com.arclearn.community.entity.auth.Permission;
+import com.arclearn.community.entity.auth.Role;
+import com.arclearn.community.entity.auth.User;
+import com.arclearn.community.mapper.auth.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,14 +23,14 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("加载用户：" + username); // 日志
         // 从数据库中查询用户
-        User user = userRepository.findByUsername(username)
+        User user = userMapper.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("用户"+ username +"不存在"));
 
         // 打印用户关联的角色

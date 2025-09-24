@@ -4,13 +4,30 @@ spring:
     username: root
     password: Li!@#19991226
     driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update  # 自动创建表（开发环境用，生产环境改validate）
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true # 格式化SQL
+#  jpa:
+#    hibernate:
+#      ddl-auto: update  # 自动创建表（开发环境用，生产环境改validate）
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true # 格式化SQL
+
+mybatis-plus:
+  # mapper.xml文件位置
+  mapper-locations: classpath:/mapper/**/*.xml
+
+  # 实体类扫描
+  typeAliasesPackage: com.arclearn.community.entity
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名转换
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印SQL语句
+  global-config:
+    db-config:
+      id-type: auto # 主键策略
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-delete-field: deleted # 逻辑删除字段名
+      logic-not-delete-value: 0 # 逻辑未删除值
+
   data:
     redis:
       host: localhost

@@ -1,4 +1,4 @@
-package com.arclearn.community.config;
+package com.arclearn.community.common.config;
 
 import com.arclearn.community.common.utils.JwtUtils;
 import jakarta.servlet.FilterChain;

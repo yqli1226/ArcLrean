@@ -9,6 +9,7 @@ public class Result<T> {
     private int code;
     private String msg;
     private T data;
+    private Long timestamp;
 
     public static <T> Result<T> success(T data) {
         return new Result<>(200, "成功", data);
@@ -22,5 +23,6 @@ public class Result<T> {
         this.code = code;
         this.msg = msg;
         this.data = data;
+        this.timestamp = System.currentTimeMillis();
     }
 }
