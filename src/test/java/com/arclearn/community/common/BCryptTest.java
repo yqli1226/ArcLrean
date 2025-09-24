@@ -1,4 +1,4 @@
-package com.arclearn.community;
+package com.arclearn.community.common;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

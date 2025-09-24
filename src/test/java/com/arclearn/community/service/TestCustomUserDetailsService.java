@@ -1,10 +1,9 @@
-package com.arclearn.community;
+package com.arclearn.community.service;
 
 import com.arclearn.community.entity.auth.Permission;
 import com.arclearn.community.entity.auth.Role;
 import com.arclearn.community.entity.auth.User;
 import com.arclearn.community.mapper.auth.UserMapper;
-import com.arclearn.community.service.CustomUserDetailsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

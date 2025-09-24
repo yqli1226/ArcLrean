@@ -1,4 +1,4 @@
-package com.arclearn.community;
+package com.arclearn.community.mapper;
 
 import com.arclearn.community.entity.auth.Permission;
 import com.arclearn.community.entity.auth.Role;
