@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.arclearn.community.mapper.auth.UserMapper">
+    <!-- 权限映射 -->
+    <resultMap id="PermissionResultMap" type="com.arclearn.community.entity.auth.Permission">
+        <id column="perm_id" property="id"/>
+        <result column="perm_code" property="code"/>
+        <result column="perm_name" property="name"/>
+    </resultMap>
+
+    <!-- 角色映射（包含权限集合） -->
+    <resultMap id="RoleResultMap" type="com.arclearn.community.entity.auth.Role">
+        <id column="role_id" property="id"/>
+        <result column="role_code" property="code"/>
+        <result column="role_name" property="name"/>
+        <!-- 映射角色关联的权限集合 -->
+        <collection property="permissions" resultMap="PermissionResultMap"/>
+    </resultMap>
+
+    <!-- 用户映射（包含角色集合） -->
+    <resultMap id="UserWithRolesAndPermissionsResultMap" type="com.arclearn.community.entity.auth.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="enabled" property="enabled"/>
+        <result column="uuid" property="uuid"/>
+        <!-- 映射用户关联的角色集合 -->
+        <collection property="roles" resultMap="RoleResultMap"/>
+    </resultMap>
+
     <!-- 自定义查询：根据用户名查询用户及关联的角色和权限 -->
-    <select id="findByUsernameWithRolesAndPermissions" resultType="com.arclearn.community.entity.auth.User">
+    <select id="findByUsernameWithRolesAndPermissions" resultMap="UserWithRolesAndPermissionsResultMap">
         SELECT u.*, r.id as role_id, r.code as role_code, r.name as role_name,
                p.id as perm_id, p.code as perm_code, p.name as perm_name
         FROM user u

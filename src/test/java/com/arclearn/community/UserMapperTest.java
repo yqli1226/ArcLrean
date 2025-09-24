@@ -40,8 +40,8 @@ public class UserMapperTest {
         assertFalse(user.getRoles().isEmpty(), "用户应关联至少一个角色");
 
         Role role = user.getRoles().get(0);
-        assertEquals("ROLE_ADMIN", role.getCode()); // 假设测试数据中的角色编码
-        assertEquals("管理员", role.getName());
+        assertEquals("ROLE_TEST", role.getCode()); // 假设测试数据中的角色编码
+        assertEquals("测试用户", role.getName());
 
         // 验证权限关联
         assertNotNull(role.getPermissions(), "权限列表不应为null");
