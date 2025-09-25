@@ -2,6 +2,7 @@ package com.arclearn.community.controller;
 
 import com.arclearn.community.common.result.Result;
 import com.arclearn.community.common.utils.JwtUtils;
+import com.arclearn.community.service.auth.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ public class AuthController {
     @Autowired
     private  AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserService userService; // 新增的用户服务类
+
     @PostMapping("/login")
     public ResponseEntity<Result<String>> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -47,6 +51,18 @@ public class AuthController {
             return new ResponseEntity<>(Result.success(jwt), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(Result.fail(401, "认证失败"), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Result<String>> register(@RequestBody LoginRequest loginRequest) {
+        try {
+            userService.register(loginRequest.getUsername(), loginRequest.getPassword());
+            return new ResponseEntity<>(Result.success("注册成功"), HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(Result.fail(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Result.fail(500, "注册失败"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

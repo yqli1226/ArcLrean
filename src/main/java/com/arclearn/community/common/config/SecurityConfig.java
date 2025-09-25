@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll() // 登录接口不需要认证
+                        .requestMatchers("/login", "/register").permitAll() // 登录接口不需要认证
                         .anyRequest().authenticated() // 其他接口都需要认证
                 );
 

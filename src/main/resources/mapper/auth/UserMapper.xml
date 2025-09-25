@@ -28,6 +28,20 @@
         <collection property="roles" resultMap="RoleResultMap"/>
     </resultMap>
 
+    <insert id="save" parameterType="com.arclearn.community.entity.auth.User">
+        INSERT INTO user (
+            uuid,
+            username,
+            password,
+            enabled
+        ) VALUES (
+                     #{uuid},
+                     #{username},
+                     #{password},
+                     #{enabled}
+                 )
+    </insert>
+
     <!-- 自定义查询：根据用户名查询用户及关联的角色和权限 -->
     <select id="findByUsernameWithRolesAndPermissions" resultMap="UserWithRolesAndPermissionsResultMap">
         SELECT u.*, r.id as role_id, r.code as role_code, r.name as role_name,

@@ -12,4 +12,7 @@ public interface UserMapper extends BaseMapper<User> {
 
 
     Optional<User> findByUsernameWithRolesAndPermissions(@Param("username") String username);
+
+
+    void save(User user);
 }

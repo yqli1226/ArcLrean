@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.arclearn.community.mapper.auth.RoleMapper">
+    <resultMap id = "BaseResultMap" type = "com.arclearn.community.entity.auth.Role">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id = "RoleWithPermissionsResultMap" type = "com.arclearn.community.entity.auth.Role">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <collection property="permissions" resultMap="PermissionResultMap"/>
+    </resultMap>
+
+    <resultMap id="PermissionResultMap" type="com.arclearn.community.entity.auth.Permission">
+        <id column="perm_id" property="id"/>
+        <result column="perm_code" property="code"/>
+        <result column="perm_name" property="name"/>
+    </resultMap>
+
+
+
+    <select id="selectByCode" resultMap="BaseResultMap">
+            select id, code, name
+            from role
+            where code = #{code}
+            limit 1;
+    </select>
+</mapper>

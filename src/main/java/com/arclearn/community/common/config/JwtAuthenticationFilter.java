@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
 
             // 排除登录路径
-            if ("/login".equals(request.getServletPath())) {
+            if ("/login".equals(request.getServletPath())|| "/register".equals(request.getServletPath())) {
                 filterChain.doFilter(request, response);
                 return;
             }
