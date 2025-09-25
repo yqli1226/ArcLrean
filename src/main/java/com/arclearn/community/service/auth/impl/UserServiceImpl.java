@@ -3,8 +3,10 @@ package com.arclearn.community.service.auth.impl;
 import com.arclearn.community.common.enmu.RoleEnum;
 import com.arclearn.community.entity.auth.Role;
 import com.arclearn.community.entity.auth.User;
+import com.arclearn.community.entity.auth.UserRole;
 import com.arclearn.community.mapper.auth.RoleMapper;
 import com.arclearn.community.mapper.auth.UserMapper;
+import com.arclearn.community.mapper.auth.UserRoleMapper;
 import com.arclearn.community.service.auth.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -42,6 +46,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.generateUuid();
 
         // 保存用户
-        userMapper.save(user);
+        userMapper.insert(user);
+
+        // 5. 向中间表user_role插入关联记录（用户ID + 角色ID）
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId()); // 用户保存后会自动生成id
+        userRole.setRoleId(defaultRole.getId()); // 角色ID
+        userRoleMapper.insert(userRole); // 插入中间表
     }
 }
