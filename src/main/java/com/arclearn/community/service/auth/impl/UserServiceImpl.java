@@ -48,10 +48,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 保存用户
         userMapper.insert(user);
 
-        // 5. 向中间表user_role插入关联记录（用户ID + 角色ID）
+        // 向中间表user_role插入关联记录
         UserRole userRole = new UserRole();
-        userRole.setUserId(user.getId()); // 用户保存后会自动生成id
-        userRole.setRoleId(defaultRole.getId()); // 角色ID
-        userRoleMapper.insert(userRole); // 插入中间表
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(defaultRole.getId());
+        userRoleMapper.insert(userRole);
     }
 }
